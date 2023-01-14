@@ -11,9 +11,7 @@ const AppRoutes: FC = () => {
     <BrowserRouter>
       <Routes>
         {appRoutes.map(({ Page, path }) => (
-          <Route key={path} path={path}>
-            <Route path={path} element={<Page />} />
-          </Route>
+          <Route key={path} path={path} element={<Page />} />
         ))}
       </Routes>
     </BrowserRouter>
