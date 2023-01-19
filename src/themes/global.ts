@@ -1,5 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
+import { COLORS } from "./colors";
+
 const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
@@ -8,9 +10,9 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html {
-    width: 440px;
+    width: 350px;
     height: 500px;
-    border: 1px solid red;
+    border: 1px solid ${COLORS.MONOCHROMATIC[50]};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-size: 96%; 
