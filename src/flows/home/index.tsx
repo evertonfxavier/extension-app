@@ -1,5 +1,6 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { faMagnifyingGlass, faBox } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 import Form from "../../components/Form";
 import Input from "../../components/Input";
@@ -8,13 +9,11 @@ import Button from "../../components/Button";
 import {
   FormWrapper,
   HistoricContent,
-  HistoricItem,
   HistoricWrapper,
   Wrapper,
 } from "./styles";
 import Heading from "../../components/Heading";
-import Text from "../../components/Text";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import HistoricCard from "../../components/HistoricCard";
 
 interface Values {
   code: string;
@@ -34,6 +33,10 @@ const Home = () => {
     navigate(`${values["code"]}/detail`);
   };
 
+  useEffect(() => {
+    localStorage.setItem("@teste", "@deu certo");
+  }, []);
+
   return (
     <Wrapper>
       <Form initialValues={initialValues} onSubmit={onSubmit}>
@@ -45,19 +48,11 @@ const Home = () => {
       <HistoricWrapper>
         <Heading type="h2">Histórico</Heading>
         <HistoricContent>
-          <HistoricItem onClick={() => navigate(`2020/detail`)}>
-            <FontAwesomeIcon icon={faBox} />
-            <div>
-              <div>
-                <Text type="body1">Cód. </Text>
-                <Text type="body1">LP561872045BR</Text>
-              </div>
-              <div>
-                <Text type="body2">Última Consulta:</Text>
-                <Text type="body2">20/04/2023</Text>
-              </div>
-            </div>
-          </HistoricItem>
+          <HistoricCard
+            code="LB561874085HK"
+            date="20/04/2023"
+            onClick={() => navigate(`LB561874085HK/detail`)}
+          />
         </HistoricContent>
       </HistoricWrapper>
     </Wrapper>

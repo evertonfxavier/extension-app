@@ -16,6 +16,7 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-size: 96%; 
+    /* background: #202024; */
   }
 
   body, button, input, textarea {
