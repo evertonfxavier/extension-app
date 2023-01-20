@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-export const Heading1 = styled.h1<{ align?: string }>`
-  color: ${props => props.color};
-  text-align: ${props => props.align};
+export const Heading1 = styled.h1<{ align?: string; weight?: number }>`
+  color: ${(props) => props.color};
+  text-align: ${(props) => props.align};
   font-size: 1.5rem;
   line-height: 40px;
-  font-weight: 400;
+  font-weight: ${(props) => props.weight ?? 400};
 `;
 
 export const Heading2 = styled(Heading1)`
@@ -24,7 +24,6 @@ export const Heading4 = styled(Heading1)`
 `;
 
 export const Heading5 = styled(Heading1)`
-  font-size: 0.50rem;
+  font-size: 0.5rem;
   line-height: 16px;
 `;
-

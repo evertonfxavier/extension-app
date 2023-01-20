@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { COLORS } from "../../themes/colors";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.button`
   display: flex;
   flex-direction: row;
   gap: 6px;
@@ -12,6 +12,7 @@ export const Wrapper = styled.div`
   cursor: pointer;
   background: ${COLORS.WHITE};
   align-items: center;
+  transition: 0.2s ease;
 
   :hover {
     filter: brightness(0.9);
@@ -30,6 +31,7 @@ export const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 6px;
+    align-items: flex-start;
 
     > span {
       font-weight: 800;

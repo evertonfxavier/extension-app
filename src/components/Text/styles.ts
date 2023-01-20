@@ -7,10 +7,14 @@ export const Text1 = styled.span<{ align?: string }>`
 `;
 
 export const Text2 = styled(Text1)`
-  font-size: 0.75rem;
+  font-size: 0.85rem;
 `;
 
 export const Text3 = styled(Text1)`
+  font-size: 0.75rem;
+`;
+
+export const Text4 = styled(Text1)`
   font-size: 0.5rem;
 `;
 

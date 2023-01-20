@@ -22,5 +22,5 @@ export const HistoricWrapper = styled.div`
 export const HistoricContent = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 `;

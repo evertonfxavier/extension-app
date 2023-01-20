@@ -11,7 +11,7 @@ const TrackingDetail = () => {
   const [dataTrackingState, setDataTrackingState] =
     useState<IDataTrackingState>({
       data: {} as ITrackingDetailResponse,
-      isLoading: false,
+      isLoading: true,
       isError: null,
     });
 
@@ -37,7 +37,7 @@ const TrackingDetail = () => {
       setDataTrackingState({
         ...dataTrackingState,
         isLoading: false,
-        isError: 401,
+        isError: 404,
       });
     }
   };
