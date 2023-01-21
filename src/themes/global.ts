@@ -15,8 +15,8 @@ const GlobalStyle = createGlobalStyle`
     border: 1px solid ${COLORS.MONOCHROMATIC[50]};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: 96%; 
-    /* background: #202024; */
+    font-size: 95%; 
+    /* background: ${COLORS.BLUE[50]}; */
   }
 
   body, button, input, textarea {

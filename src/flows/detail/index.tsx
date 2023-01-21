@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 import Heading from "../../components/Heading";
 import LoadingBox from "../../components/Loading";
@@ -13,71 +13,19 @@ import Error from "../../components/Error";
 import {
   GoBackButton,
   Header,
+  IconStepWrapper,
+  InfoStepWrapper,
   TimelineItem,
   TimelineWrapper,
   UnDataWrapper,
   Wrapper,
 } from "./styles";
-
-const mockData = {
-  codigo: "LB561874085HK",
-  host: "vc",
-  eventos: [
-    {
-      status: "Objeto encaminhado",
-      local: "CURITIBA - PR",
-      data: "12/01/2023",
-      hora: "14:56",
-      subStatus: [
-        "De:  CURITIBA - PR  -> Para:  Unidade de Tratamento - RECIFE/PE",
-      ],
-    },
-    {
-      status: "Fiscalização aduaneira finalizada",
-      local: "CURITIBA - PR",
-      data: "12/01/2023",
-      hora: "14:54",
-      subStatus: ["De:  CURITIBA - PR - "],
-    },
-    {
-      status: "Objeto recebido pelos Correios do Brasil",
-      local: "CURITIBA - PR",
-      data: "12/01/2023",
-      hora: "09:53",
-      subStatus: [
-        "De:  CURITIBA - PR - ",
-        '<span class="minhasImportacoes">Acesse o ambiente <a href="https://www.correios.com.br/encomendas-logistica/minhas-importacoes/minhas-importacoes" target="_blank">Minhas Importações</a></span>',
-      ],
-    },
-    {
-      status: "Objeto encaminhado",
-      local: "Pa�s - /BR",
-      data: "09/01/2023",
-      hora: "15:05",
-      subStatus: ["De:  Pa�s - /BR "],
-    },
-    {
-      status: "Objeto postado",
-      local: "",
-      data: "09/01/2023",
-      hora: "14:44",
-      subStatus: [" "],
-    },
-    {
-      status: "Objeto encaminhado",
-      local: "CURITIBA - PR",
-      data: "12/01/2023",
-      hora: "14:56",
-      subStatus: [
-        "De:  CURITIBA - PR  -> Para:  Unidade de Tratamento - RECIFE/PE",
-      ],
-    },
-  ],
-  time: 1.598,
-  quantidade: 6,
-  servico: "REMESSA INTERNACIONAL",
-  ultimo: "2023-01-12T17:56:00.000Z",
-};
+import {
+  bgColorByStatus,
+  checkIconByStatus,
+  fixDataString,
+} from "../../utils/checkStep";
+import Text from "../../components/Text";
 
 const Detail = () => {
   const { id } = useParams();
@@ -94,7 +42,7 @@ const Detail = () => {
     });
   }, []);
 
-  console.log(dataTrackingState);
+  !dataTrackingState.isLoading && dataTrackingState.data?.eventos.pop();
 
   return (
     <Wrapper>
@@ -129,10 +77,39 @@ const Detail = () => {
           {dataTrackingState.data
             ? dataTrackingState.data.eventos.map((data, idx) => (
                 <TimelineItem key={idx}>
-                  <span>{data.status}</span>
-                  <span>{data.local}</span>
-                  <span>{data.data}</span>
-                  <span>{data.hora}</span>
+                  <IconStepWrapper color={bgColorByStatus(data.status)}>
+                    <FontAwesomeIcon
+                      icon={checkIconByStatus(data.status)}
+                      color={COLORS.WHITE}
+                      style={{
+                        width: 22,
+                        height: 22,
+                      }}
+                    />
+                  </IconStepWrapper>
+                  <InfoStepWrapper>
+                    <Text type="body3" color={COLORS.MONOCHROMATIC[100]}>
+                      {data.data} • {data.hora}
+                    </Text>
+                    <Text
+                      type="body2"
+                      color={bgColorByStatus(data.status)}
+                      weight={800}
+                    >
+                      {data.status}
+                    </Text>
+                    <Text type="body2" color={COLORS.MONOCHROMATIC[100]}>
+                      {fixDataString(data.local)}
+                    </Text>
+                    {/* <div>
+                      {data.status ===
+                      "Objeto recebido pelos Correios do Brasil"
+                        ? null
+                        : data.subStatus.map((sub, i) => (
+                            <span key={i}>{fixDataString(sub)}</span>
+                          ))}
+                    </div> */}
+                  </InfoStepWrapper>
                 </TimelineItem>
               ))
             : null}

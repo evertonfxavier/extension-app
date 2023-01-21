@@ -61,6 +61,16 @@ const Home = () => {
             date="20/04/2023"
             onClick={() => navigate(`NA848914857BR/detail`)}
           />
+          <HistoricCard
+            code="OV270250195BR"
+            date="20/04/2023"
+            onClick={() => navigate(`OV270250195BR/detail`)}
+          />
+          <HistoricCard
+            code="NL289950203BR"
+            date="20/04/2023"
+            onClick={() => navigate(`NL289950203BR/detail`)}
+          />
         </HistoricContent>
       </HistoricWrapper>
     </Wrapper>
