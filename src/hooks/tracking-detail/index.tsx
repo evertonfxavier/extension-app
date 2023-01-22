@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { format } from "date-fns";
+import { useCallback, useState } from "react";
 
+import { PACKTRACKING_ENUM } from "../../constants/localstorage";
 import TrackingDetailRequest from "../../services/requests/linketrack-detail";
 import { ITrackingDetailResponse } from "../../services/requests/linketrack-detail/types";
+import { getLocalStorage, setLocalStorage } from "../../utils/localstorage";
 import { IDataTrackingState, IGetTrackingDetailParams } from "./types";
 
 const user = process.env.REACT_APP_USER || "";
@@ -27,11 +30,14 @@ const TrackingDetail = () => {
         token,
         codigo,
       });
+
       setDataTrackingState({
         ...dataTrackingState,
         data: response,
         isLoading: false,
       });
+
+      handleSaveCodeInStorage(response.codigo);
     } catch (e) {
       console.log(e);
       setDataTrackingState({
@@ -41,6 +47,36 @@ const TrackingDetail = () => {
       });
     }
   };
+
+  const handleSaveCodeInStorage = useCallback((codigo: string) => {
+    const getStorage = getLocalStorage(PACKTRACKING_ENUM.KEY);
+    const checkIfExist = getStorage?.find(
+      (item: any) => item.codigo === codigo
+    );
+
+    //
+
+    if (getStorage) {
+      if (Boolean(checkIfExist)) {
+        return;
+      }
+      return setLocalStorage([
+        ...getStorage,
+        {
+          codigo,
+          name: codigo,
+          date: format(new Date(), "dd/MM/yyyy • HH:mm"),
+        },
+      ]);
+    }
+    return setLocalStorage([
+      {
+        codigo,
+        name: codigo,
+        date: format(new Date(), "dd/MM/yyyy • HH:mm"),
+      },
+    ]);
+  }, []);
 
   return { dataTrackingState, getTrackingDetail };
 };

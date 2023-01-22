@@ -13,11 +13,14 @@ export const Header = styled.div`
   display: flex;
   flex-direction: row;
   gap: 6px;
+`;
 
-  h2 {
-    width: 250px;
-    text-align: center;
-  }
+export const HeadingWrapper = styled.div`
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  text-transform: uppercase;
 `;
 
 export const GoBackButton = styled.button`

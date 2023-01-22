@@ -1,5 +1,6 @@
 import { FC, ReactNode } from "react";
 
+import { COLORS } from "../../themes/colors";
 import { Text1, Text2, Text3, Text4 } from "./styles";
 
 export interface TextProps {
@@ -13,7 +14,7 @@ export interface TextProps {
 const Text: FC<TextProps> = ({
   children,
   type,
-  color,
+  color = COLORS.MONOCHROMATIC[100],
   align,
   weight,
   ...props

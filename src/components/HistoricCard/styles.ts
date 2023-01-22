@@ -25,16 +25,23 @@ export const Wrapper = styled.button`
     width: 40px;
     height: 40px;
   }
+`;
 
-  > div {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    align-items: flex-start;
+export const ContentWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
 
-    > span {
-      font-weight: 800;
+  > span {
+    font-weight: 800;
+  }
+
+  > span:nth-child(2) {
+    transition: 0.2s ease;
+    :hover {
+      color: ${COLORS.BLUE.MAIN};
     }
   }
 `;

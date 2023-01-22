@@ -1,5 +1,6 @@
 import { FC, ReactNode } from "react";
 
+import { COLORS } from "../../themes/colors";
 import { Heading1, Heading2, Heading3, Heading4, Heading5 } from "./styles";
 
 export interface HeadingProps {
@@ -13,7 +14,7 @@ export interface HeadingProps {
 const Heading: FC<HeadingProps> = ({
   children,
   type,
-  color,
+  color = COLORS.MONOCHROMATIC[100],
   align,
   weight,
   ...props

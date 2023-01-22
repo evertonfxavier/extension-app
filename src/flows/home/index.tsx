@@ -1,13 +1,16 @@
-import { useEffect } from "react";
+import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 import Form from "../../components/Form";
 import Input from "../../components/Input";
+import Error from "../../components/Error";
 import Button from "../../components/Button";
+import { COLORS } from "../../themes/colors";
 import Heading from "../../components/Heading";
 import HistoricCard from "../../components/HistoricCard";
-import { COLORS } from "../../themes/colors";
+import { getLocalStorage } from "../../utils/localstorage";
+import { PACKTRACKING_ENUM } from "../../constants/localstorage";
 
 import {
   FormWrapper,
@@ -27,22 +30,25 @@ const initialValues = {
 const Home = () => {
   const navigate = useNavigate();
 
-  const onSubmit = (values: Values) => {
+  const onSubmit = useCallback((values: Values) => {
     if (!values["code"]) {
       return;
     }
     navigate(`${values["code"]}/detail`);
-  };
+  }, [navigate]);
 
-  useEffect(() => {
-    localStorage.setItem("@teste", "@deu certo");
-  }, []);
+  const getStorageData = getLocalStorage(PACKTRACKING_ENUM.KEY);
+
+  //LB561874085HK
+  //NA848914857BR
+  //OV270250195BR
+  //NL289950203BR
 
   return (
     <Wrapper>
       <Form initialValues={initialValues} onSubmit={onSubmit}>
         <FormWrapper>
-          <Input name="code" placeholder="EX. LP561872045BR" />
+          <Input name="code" placeholder="EX. LP561872045BR" maxLength={13} />
           <Button type="submit" icon={faMagnifyingGlass} />
         </FormWrapper>
       </Form>
@@ -51,26 +57,18 @@ const Home = () => {
           Histórico
         </Heading>
         <HistoricContent>
-          <HistoricCard
-            code="LB561874085HK"
-            date="20/04/2023"
-            onClick={() => navigate(`LB561874085HK/detail`)}
-          />
-          <HistoricCard
-            code="NA848914857BR"
-            date="20/04/2023"
-            onClick={() => navigate(`NA848914857BR/detail`)}
-          />
-          <HistoricCard
-            code="OV270250195BR"
-            date="20/04/2023"
-            onClick={() => navigate(`OV270250195BR/detail`)}
-          />
-          <HistoricCard
-            code="NL289950203BR"
-            date="20/04/2023"
-            onClick={() => navigate(`NL289950203BR/detail`)}
-          />
+          {getStorageData ? (
+            getStorageData.map((item: any) => (
+              <HistoricCard
+                key={`key-${item.codigo}`}
+                code={item.codigo}
+                date={item.date}
+                onClick={() => navigate(`${item.codigo}/detail`)}
+              />
+            ))
+          ) : (
+            <Error />
+          )}
         </HistoricContent>
       </HistoricWrapper>
     </Wrapper>
