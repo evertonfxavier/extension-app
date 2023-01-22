@@ -8,7 +8,7 @@ export const Text1 = styled.span<{ align?: string; weight?: number }>`
 `;
 
 export const Text2 = styled(Text1)`
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 `;
 
 export const Text3 = styled(Text1)`
