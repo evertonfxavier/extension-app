@@ -100,9 +100,6 @@ const Detail = () => {
           />
         </GoBackButton>
         <HeadingWrapper>
-          <Heading type="h4" weight={500}>
-            {id}
-          </Heading>
           <Heading type="h2" weight={500}>
             {id}
           </Heading>
@@ -157,12 +154,12 @@ const Detail = () => {
                       {data.local && `Local: ${fixDataString(data.local)}`}
                     </Text>
                     <div>
-                      {!(data.status === STEP_ENUM.RECEIVED)
-                        && data.subStatus.map((sub, i) => (
-                            <Text type="body3" key={i}>
-                              {formattedSubStatus(sub)}
-                            </Text>
-                          ))}
+                      {!(data.status === STEP_ENUM.RECEIVED) &&
+                        data.subStatus.map((sub, i) => (
+                          <Text type="body3" key={i}>
+                            {formattedSubStatus(sub)}
+                          </Text>
+                        ))}
                     </div>
                   </InfoStepWrapper>
                 </TimelineItem>
