@@ -63,6 +63,7 @@ export const NameWrapper = styled.div`
   width: fit-content;
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 6px;
 
   > svg {
@@ -89,6 +90,18 @@ export const NameWrapper = styled.div`
         color: ${COLORS.BLUE[75]};
       }
     }
+  }
+`;
+
+export const ChangeNameInput = styled.input`
+  width: 100%;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 2px;
+  border: 1px solid ${COLORS.MONOCHROMATIC[80]};
+
+  &:focus-visible {
+    outline: 1px solid ${COLORS.BLUE.MAIN};
   }
 `;
 

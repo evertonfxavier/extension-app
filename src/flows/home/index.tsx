@@ -47,14 +47,12 @@ const Home = () => {
     [navigate]
   );
 
-
   //LB561874085HK
   //NA848914857BR
   //OV270250195BR
   //NL289950203BR
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleUpdateName = (code: string) => {
+  const handleUpdateName = (code: string, name: string) => {
     const getStorageDataList = getLocalStorage(PACKTRACKING_ENUM.KEY);
 
     const checkSpecificDataStorage = getStorageDataList?.find(
@@ -64,7 +62,7 @@ const Home = () => {
     const updateData = checkSpecificDataStorage
       ? {
           ...checkSpecificDataStorage,
-          date: "",
+          name,
         }
       : null;
 
@@ -74,7 +72,8 @@ const Home = () => {
 
     if (updateData === null) return;
 
-    return setLocalStorage([...filterPrevDataList, updateData]);
+    setLocalDataState([...filterPrevDataList, updateData]);
+    setLocalStorage([...filterPrevDataList, updateData]);
   };
 
   const handleRemove = useCallback((code: string) => {
@@ -111,9 +110,10 @@ const Home = () => {
               <HistoricCard
                 key={`key-${item.codigo}`}
                 code={item.codigo}
+                name={item.name}
                 date={item.date}
                 goTo={() => navigate(`${item.codigo}/detail`)}
-                updateName={() => console.log("a")}
+                updateName={(newName) => handleUpdateName(item.codigo, newName)}
                 removeFromHistoric={() => handleRemove(item.codigo)}
               />
             ))
