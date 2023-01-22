@@ -67,7 +67,10 @@ const HistoricCard: FC<IHistoricCard> = ({
         <Text type="body4">{code}</Text>
 
         {selectTextState ? (
-          <NameWrapper onClick={(e) => e.stopPropagation()}>
+          <NameWrapper
+            onClick={(e) => e.stopPropagation()}
+            onKeyUp={(e) => e.preventDefault()}
+          >
             <ChangeNameInput
               type="text"
               onChange={(e) => setInputText(e.target.value)}
