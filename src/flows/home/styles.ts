@@ -24,3 +24,10 @@ export const HistoricContent = styled.div`
   flex-direction: column-reverse;
   gap: 8px;
 `;
+
+export const NoDataWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;

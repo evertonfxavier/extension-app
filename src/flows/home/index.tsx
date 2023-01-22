@@ -4,8 +4,8 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 import Form from "../../components/Form";
 import Input from "../../components/Input";
-import Error from "../../components/Error";
 import Button from "../../components/Button";
+import NoData from "../../components/NoData";
 import { COLORS } from "../../themes/colors";
 import Heading from "../../components/Heading";
 import HistoricCard from "../../components/HistoricCard";
@@ -16,6 +16,7 @@ import {
   FormWrapper,
   HistoricContent,
   HistoricWrapper,
+  NoDataWrapper,
   Wrapper,
 } from "./styles";
 
@@ -28,13 +29,9 @@ const initialValues = {
 };
 
 const Home = () => {
-  const [localDataState, setLocalDataState] = useState(() => {
-    const localStorageData = getLocalStorage(PACKTRACKING_ENUM.KEY);
-    // if (localStorageData.length === 0) {
-    //   localStorage.removeItem(PACKTRACKING_ENUM.KEY);
-    // }
-    return localStorageData;
-  });
+  const [localDataState, setLocalDataState] = useState(
+    getLocalStorage(PACKTRACKING_ENUM.KEY)
+  );
   const navigate = useNavigate();
 
   const onSubmit = useCallback(
@@ -118,7 +115,10 @@ const Home = () => {
               />
             ))
           ) : (
-            <Error />
+            <NoDataWrapper>
+              <NoData />
+              <Heading type="h2">Não há nada aqui.</Heading>
+            </NoDataWrapper>
           )}
         </HistoricContent>
       </HistoricWrapper>
