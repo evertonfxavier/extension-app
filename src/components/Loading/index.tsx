@@ -9,6 +9,7 @@ const LoadingBox = () => {
         animationData: BoxFloating,
         loop: true,
       }}
+      speed={.5}
     />
   );
 };
