@@ -16,6 +16,6 @@ export const Text3 = styled(Text1)`
 `;
 
 export const Text4 = styled(Text1)`
-  font-size: 0.5rem;
+  font-size: 0.65rem;
 `;
 
