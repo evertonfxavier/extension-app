@@ -20,8 +20,14 @@ export const COLORS = {
   BLUE: {
     MAIN: "#0092CA",
     50: "#468fd4",
+    75: "#2771DB",
   },
   YELLOW: {
     MAIN: "#F8B402",
+  },
+  RED: {
+    MAIN: "#F95859",
+    50: "#DB2F2E",
+    100: "#C24C2B",
   },
 };

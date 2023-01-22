@@ -32,8 +32,7 @@ export const TimelineWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
-
-  height: 400px;
+  height: 384px;
   overflow-y: auto;
 `;
 

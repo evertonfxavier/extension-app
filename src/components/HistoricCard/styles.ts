@@ -22,8 +22,16 @@ export const Wrapper = styled.button`
   }
 
   > svg {
-    width: 40px;
-    height: 40px;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  :hover {
+    > svg {
+      opacity: 1;
+      visibility: visible;
+      color: ${COLORS.RED[50]};
+    }
   }
 `;
 
@@ -49,11 +57,37 @@ export const ContentWrapper = styled.div`
   > span {
     font-weight: 800;
   }
+`;
 
-  > span:nth-child(2) {
+export const NameWrapper = styled.div`
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+
+  > svg {
+    opacity: 0;
+    visibility: hidden;
     transition: 0.2s ease;
-    :hover {
+  }
+
+  > span {
+    font-weight: 800;
+    transition: 0.2s ease;
+  }
+
+  :hover {
+    > span {
       color: ${COLORS.BLUE.MAIN};
+    }
+
+    > svg {
+      opacity: 1;
+      visibility: visible;
+      color: ${COLORS.BLUE.MAIN};
+      :hover {
+        color: ${COLORS.BLUE[75]};
+      }
     }
   }
 `;

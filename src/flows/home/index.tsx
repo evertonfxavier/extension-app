@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
@@ -9,7 +9,7 @@ import Button from "../../components/Button";
 import { COLORS } from "../../themes/colors";
 import Heading from "../../components/Heading";
 import HistoricCard from "../../components/HistoricCard";
-import { getLocalStorage } from "../../utils/localstorage";
+import { getLocalStorage, setLocalStorage } from "../../utils/localstorage";
 import { PACKTRACKING_ENUM } from "../../constants/localstorage";
 
 import {
@@ -28,6 +28,13 @@ const initialValues = {
 };
 
 const Home = () => {
+  const [localDataState, setLocalDataState] = useState(() => {
+    const localStorageData = getLocalStorage(PACKTRACKING_ENUM.KEY);
+    // if (localStorageData.length === 0) {
+    //   localStorage.removeItem(PACKTRACKING_ENUM.KEY);
+    // }
+    return localStorageData;
+  });
   const navigate = useNavigate();
 
   const onSubmit = useCallback(
@@ -40,12 +47,44 @@ const Home = () => {
     [navigate]
   );
 
-  const getStorageData = getLocalStorage(PACKTRACKING_ENUM.KEY);
 
   //LB561874085HK
   //NA848914857BR
   //OV270250195BR
   //NL289950203BR
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleUpdateName = (code: string) => {
+    const getStorageDataList = getLocalStorage(PACKTRACKING_ENUM.KEY);
+
+    const checkSpecificDataStorage = getStorageDataList?.find(
+      (item: any) => item.codigo === code
+    );
+
+    const updateData = checkSpecificDataStorage
+      ? {
+          ...checkSpecificDataStorage,
+          date: "",
+        }
+      : null;
+
+    const filterPrevDataList = getStorageDataList?.filter(
+      (item: any) => item.codigo !== code
+    );
+
+    if (updateData === null) return;
+
+    return setLocalStorage([...filterPrevDataList, updateData]);
+  };
+
+  const handleRemove = useCallback((code: string) => {
+    const getStorageDataList = getLocalStorage(PACKTRACKING_ENUM.KEY);
+    const filterPrevDataList = getStorageDataList?.filter(
+      (item: any) => item.codigo !== code
+    );
+    setLocalDataState([...filterPrevDataList]);
+    setLocalStorage([...filterPrevDataList]);
+  }, []);
 
   return (
     <Wrapper>
@@ -67,13 +106,15 @@ const Home = () => {
           Histórico
         </Heading>
         <HistoricContent>
-          {getStorageData ? (
-            getStorageData.map((item: any) => (
+          {localDataState.length > 0 ? (
+            localDataState.map((item: any) => (
               <HistoricCard
                 key={`key-${item.codigo}`}
                 code={item.codigo}
                 date={item.date}
-                onClick={() => navigate(`${item.codigo}/detail`)}
+                goTo={() => navigate(`${item.codigo}/detail`)}
+                updateName={() => console.log("a")}
+                removeFromHistoric={() => handleRemove(item.codigo)}
               />
             ))
           ) : (
