@@ -30,12 +30,15 @@ const initialValues = {
 const Home = () => {
   const navigate = useNavigate();
 
-  const onSubmit = useCallback((values: Values) => {
-    if (!values["code"]) {
-      return;
-    }
-    navigate(`${values["code"]}/detail`);
-  }, [navigate]);
+  const onSubmit = useCallback(
+    (values: Values) => {
+      if (!values["code"]) {
+        return;
+      }
+      navigate(`${values["code"]}/detail`);
+    },
+    [navigate]
+  );
 
   const getStorageData = getLocalStorage(PACKTRACKING_ENUM.KEY);
 
@@ -49,7 +52,14 @@ const Home = () => {
       <Form initialValues={initialValues} onSubmit={onSubmit}>
         <FormWrapper>
           <Input name="code" placeholder="EX. LP561872045BR" maxLength={13} />
-          <Button type="submit" icon={faMagnifyingGlass} />
+          <Button
+            type="submit"
+            icon={faMagnifyingGlass}
+            iconColor={COLORS.WHITE}
+            style={{
+              background: COLORS.BLUE.MAIN,
+            }}
+          />
         </FormWrapper>
       </Form>
       <HistoricWrapper>

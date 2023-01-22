@@ -7,7 +7,7 @@ export const Wrapper = styled.button`
   flex-direction: row;
   gap: 6px;
   border-radius: 4px;
-  border: 1px solid ${COLORS.MONOCHROMATIC[50]};
+  border: 1px solid ${COLORS.MONOCHROMATIC[80]};
   padding: 4px;
   cursor: pointer;
   background: ${COLORS.WHITE};
@@ -25,6 +25,18 @@ export const Wrapper = styled.button`
     width: 40px;
     height: 40px;
   }
+`;
+
+export const IconStepWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  background-color: ${(props) => props.color};
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 `;
 
 export const ContentWrapper = styled.div`

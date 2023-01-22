@@ -7,12 +7,13 @@ import { ButtonStyled } from "./styles";
 interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode;
   icon?: IconProp;
+  iconColor?: string;
 }
 
-const Button: FC<IButton> = ({ children, icon, ...props }) => {
+const Button: FC<IButton> = ({ children, icon, iconColor, ...props }) => {
   return (
     <ButtonStyled {...props}>
-      {children} {icon && <FontAwesomeIcon icon={icon} />}
+      {children} {icon && <FontAwesomeIcon icon={icon} color={iconColor} />}
     </ButtonStyled>
   );
 };

@@ -42,7 +42,7 @@ export const TimelineItem = styled.div`
   display: flex;
   flex-direction: row;
   gap: 8px;
-  border: 1px solid ${COLORS.MONOCHROMATIC[75]};
+  border: 1px solid ${COLORS.MONOCHROMATIC[80]};
   border-radius: 4px;
   padding: 6px;
   background-color: ${COLORS.WHITE};

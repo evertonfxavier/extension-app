@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
+import { format } from "date-fns";
 import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -16,6 +17,7 @@ import {
   bgColorByStatus,
   checkIconByStatus,
   fixDataString,
+  STEP_ENUM,
 } from "../../utils/checkStep";
 
 import {
@@ -29,7 +31,6 @@ import {
   UnDataWrapper,
   Wrapper,
 } from "./styles";
-import { format } from "date-fns";
 
 const Detail = () => {
   const { id } = useParams();
@@ -54,9 +55,9 @@ const Detail = () => {
     const filterPrevDataList = getStorageDataList?.filter(
       (item: any) => item.codigo !== id
     );
-    
+
     if (updateData === null) return;
-    
+
     return setLocalStorage([...filterPrevDataList, updateData]);
   };
 
@@ -77,6 +78,14 @@ const Detail = () => {
     dataTrackingState.isError !== 404 &&
     dataTrackingState.data?.eventos.pop();
 
+  const formattedSubStatus = (substatus: string) => {
+    const checkData = fixDataString(substatus)
+      .replace(/De.*-/, "")
+      .replace(/De.*Para:/, "");
+
+    return checkData === " " ? null : `Destino: ${checkData}`;
+  };
+
   return (
     <Wrapper>
       <Header>
@@ -96,6 +105,14 @@ const Detail = () => {
           </Heading>
           <Heading type="h2" weight={500}>
             {id}
+          </Heading>
+          <Heading type="h5" weight={500}>
+            {!dataTrackingState.isLoading && dataTrackingState.isError !== 404
+              ? `Última atualização: ${format(
+                  new Date(dataTrackingState.data?.ultimo),
+                  "dd/MM/yyyy • HH:mm"
+                )}`
+              : "..."}
           </Heading>
         </HeadingWrapper>
       </Header>
@@ -136,14 +153,14 @@ const Detail = () => {
                     >
                       {data.status}
                     </Text>
-                    <Text type="body2">{fixDataString(data.local)}</Text>
+                    <Text type="body3">
+                      {data.local && `Local: ${fixDataString(data.local)}`}
+                    </Text>
                     <div>
-                      {data.status ===
-                      "Objeto recebido pelos Correios do Brasil"
-                        ? null
-                        : data.subStatus.map((sub, i) => (
+                      {!(data.status === STEP_ENUM.RECEIVED)
+                        && data.subStatus.map((sub, i) => (
                             <Text type="body3" key={i}>
-                              {fixDataString(sub)}
+                              {formattedSubStatus(sub)}
                             </Text>
                           ))}
                     </div>

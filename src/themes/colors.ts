@@ -4,6 +4,7 @@ export const COLORS = {
   MONOCHROMATIC: {
     50: "#D7D7D7",
     75: "#d7d7d738",
+    80: "#d7d7d76e",
     100: "#202024cc",
     150: "#41506B",
   },

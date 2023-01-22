@@ -5,7 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Text from "../../components/Text";
 import { COLORS } from "../../themes/colors";
 
-import { ContentWrapper, HistoricDateContent, Wrapper } from "./styles";
+import {
+  ContentWrapper,
+  HistoricDateContent,
+  IconStepWrapper,
+  Wrapper,
+} from "./styles";
 
 interface IHistoricCard extends ButtonHTMLAttributes<HTMLButtonElement> {
   code: string;
@@ -16,7 +21,16 @@ interface IHistoricCard extends ButtonHTMLAttributes<HTMLButtonElement> {
 const HistoricCard: FC<IHistoricCard> = ({ code, date, onClick, ...props }) => {
   return (
     <Wrapper onClick={onClick} {...props}>
-      <FontAwesomeIcon icon={faBox} color={COLORS.MONOCHROMATIC[100]} />
+      <IconStepWrapper color={COLORS.BLUE.MAIN}>
+        <FontAwesomeIcon
+          icon={faBox}
+          color={COLORS.WHITE}
+          style={{
+            width: 22,
+            height: 22,
+          }}
+        />
+      </IconStepWrapper>
       <ContentWrapper>
         <Text type="body4">{code}</Text>
         <Text type="body2" color={COLORS.MONOCHROMATIC[100]}>
