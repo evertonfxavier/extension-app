@@ -9,6 +9,7 @@ import {
   faX,
   faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
+import { ILocalStorage } from "../constants/localstorage";
 
 export enum STEP_ENUM {
   POSTED = "Objeto postado",
@@ -53,4 +54,20 @@ export const bgColorByStatus = (status: string) => {
 
 export const fixDataString = (item: string) => {
   return item.replace("Pa�s", "País").replace("Distribui��o", "Distribuição");
+};
+
+export const filterPrevData = (
+  code: string,
+  localStorageData: ILocalStorage[]
+) => {
+  return localStorageData?.filter(
+    (item: ILocalStorage) => item.codigo !== code
+  );
+};
+
+export const findPrevData = (
+  code: string,
+  localStorageData: ILocalStorage[]
+) => {
+  return localStorageData?.find((item: ILocalStorage) => item.codigo === code);
 };

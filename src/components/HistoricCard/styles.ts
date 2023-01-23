@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { COLORS } from "../../themes/colors";
 
@@ -30,7 +31,6 @@ export const Wrapper = styled.button`
     > svg {
       opacity: 1;
       visibility: visible;
-      color: ${COLORS.RED[50]};
     }
   }
 `;
@@ -109,4 +109,14 @@ export const HistoricDateContent = styled.div`
   display: flex;
   flex-direction: row;
   gap: 6px;
+`;
+
+export const CustomIcon = styled(FontAwesomeIcon)<{
+  sizing?: number;
+  paddingright?: number;
+}>`
+  width: ${(props) => `${props.sizing}px` ?? "14px"};
+  height: ${(props) => `${props.sizing}px` ?? "14px"};
+  padding-right: ${(props) => `${props.paddingright}px` ?? "none"};
+  color: ${props => props.color};
 `;

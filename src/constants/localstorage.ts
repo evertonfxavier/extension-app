@@ -1,3 +1,9 @@
 export enum PACKTRACKING_ENUM {
-  KEY = '@packTracking'
+  KEY = "@packTracking",
+}
+
+export interface ILocalStorage {
+  codigo: string;
+  name: string;
+  date: string;
 }

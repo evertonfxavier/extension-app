@@ -1,17 +1,16 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import { format } from "date-fns";
 import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
-import { PACKTRACKING_ENUM } from "../../constants/localstorage";
+import { ILocalStorage, PACKTRACKING_ENUM } from "../../constants/localstorage";
 import { getLocalStorage, setLocalStorage } from "../../utils/localstorage";
 import TrackingDetail from "../../hooks/tracking-detail";
-import LoadingBox from "../../components/Loading";
+import LottieComponent from "../../components/Lottie";
+import { BoxFloating, NotFound } from "../../assets";
 import Heading from "../../components/Heading";
 import { COLORS } from "../../themes/colors";
-import Error from "../../components/Error";
 import Text from "../../components/Text";
 import {
   bgColorByStatus,
@@ -28,7 +27,6 @@ import {
   InfoStepWrapper,
   TimelineItem,
   TimelineWrapper,
-  UnDataWrapper,
   Wrapper,
 } from "./styles";
 
@@ -38,13 +36,15 @@ const Detail = () => {
 
   const { dataTrackingState, getTrackingDetail } = TrackingDetail();
 
+  const getStorageDataList: ILocalStorage[] = getLocalStorage(
+    PACKTRACKING_ENUM.KEY
+  );
+
+  const checkSpecificDataStorage = getStorageDataList?.find(
+    (item: ILocalStorage) => item.codigo === id
+  );
+
   const handleUpdateDateByVerification = () => {
-    const getStorageDataList = getLocalStorage(PACKTRACKING_ENUM.KEY);
-
-    const checkSpecificDataStorage = getStorageDataList?.find(
-      (item: any) => item.codigo === id
-    );
-
     const updateData = checkSpecificDataStorage
       ? {
           ...checkSpecificDataStorage,
@@ -53,7 +53,7 @@ const Detail = () => {
       : null;
 
     const filterPrevDataList = getStorageDataList?.filter(
-      (item: any) => item.codigo !== id
+      (item: ILocalStorage) => item.codigo !== id
     );
 
     if (updateData === null) return;
@@ -71,7 +71,8 @@ const Detail = () => {
     });
 
     handleUpdateDateByVerification();
-  }, [id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const checkData =
     !dataTrackingState.isLoading &&
@@ -100,8 +101,11 @@ const Detail = () => {
           />
         </GoBackButton>
         <HeadingWrapper>
-          <Heading type="h2" weight={500}>
+          <Heading type="h4" weight={500}>
             {id}
+          </Heading>
+          <Heading type="h2" weight={500}>
+            {checkSpecificDataStorage?.name ?? id}
           </Heading>
           <Heading type="h5" weight={500}>
             {!dataTrackingState.isLoading && dataTrackingState.isError !== 404
@@ -114,14 +118,10 @@ const Detail = () => {
         </HeadingWrapper>
       </Header>
       {!dataTrackingState.isError && dataTrackingState.isLoading ? (
-        <UnDataWrapper>
-          <LoadingBox />
-        </UnDataWrapper>
+        <LottieComponent data={BoxFloating} />
       ) : null}
       {dataTrackingState.isError === 404 && !dataTrackingState.isLoading ? (
-        <UnDataWrapper>
-          <Error />
-        </UnDataWrapper>
+        <LottieComponent data={NotFound} />
       ) : null}
 
       {!dataTrackingState.isLoading && dataTrackingState.isError !== 404 && (

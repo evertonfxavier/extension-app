@@ -20,7 +20,6 @@ export const HeadingWrapper = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
-  text-transform: uppercase;
 `;
 
 export const GoBackButton = styled.button`
@@ -69,12 +68,4 @@ export const InfoStepWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
-`;
-
-export const UnDataWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 300px;
-  height: 300px;
 `;

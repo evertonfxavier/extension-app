@@ -5,18 +5,18 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Form from "../../components/Form";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import NoData from "../../components/NoData";
 import { COLORS } from "../../themes/colors";
 import Heading from "../../components/Heading";
 import HistoricCard from "../../components/HistoricCard";
 import { getLocalStorage, setLocalStorage } from "../../utils/localstorage";
-import { PACKTRACKING_ENUM } from "../../constants/localstorage";
+import { ILocalStorage, PACKTRACKING_ENUM } from "../../constants/localstorage";
+import LottieComponent from "../../components/Lottie";
+import { NoDataBox } from "../../assets";
 
 import {
   FormWrapper,
   HistoricContent,
   HistoricWrapper,
-  NoDataWrapper,
   Wrapper,
 } from "./styles";
 
@@ -29,7 +29,7 @@ const initialValues = {
 };
 
 const Home = () => {
-  const [localDataState, setLocalDataState] = useState(
+  const [localDataState, setLocalDataState] = useState<ILocalStorage[]>(
     getLocalStorage(PACKTRACKING_ENUM.KEY)
   );
   const navigate = useNavigate();
@@ -44,16 +44,11 @@ const Home = () => {
     [navigate]
   );
 
-  //LB561874085HK
-  //NA848914857BR
-  //OV270250195BR
-  //NL289950203BR
-
   const handleUpdateName = (code: string, name: string) => {
     const getStorageDataList = getLocalStorage(PACKTRACKING_ENUM.KEY);
 
     const checkSpecificDataStorage = getStorageDataList?.find(
-      (item: any) => item.codigo === code
+      (item: ILocalStorage) => item.codigo === code
     );
 
     const updateData = checkSpecificDataStorage
@@ -64,7 +59,7 @@ const Home = () => {
       : null;
 
     const filterPrevDataList = getStorageDataList?.filter(
-      (item: any) => item.codigo !== code
+      (item: ILocalStorage) => item.codigo !== code
     );
 
     if (updateData === null) return;
@@ -76,7 +71,7 @@ const Home = () => {
   const handleRemove = useCallback((code: string) => {
     const getStorageDataList = getLocalStorage(PACKTRACKING_ENUM.KEY);
     const filterPrevDataList = getStorageDataList?.filter(
-      (item: any) => item.codigo !== code
+      (item: ILocalStorage) => item.codigo !== code
     );
     setLocalDataState([...filterPrevDataList]);
     setLocalStorage([...filterPrevDataList]);
@@ -86,7 +81,7 @@ const Home = () => {
     <Wrapper>
       <Form initialValues={initialValues} onSubmit={onSubmit}>
         <FormWrapper>
-          <Input name="code" placeholder="EX. LP561872045BR" maxLength={13} />
+          <Input name="code" placeholder="LP561872045BR" maxLength={13} />
           <Button
             type="submit"
             icon={faMagnifyingGlass}
@@ -103,7 +98,7 @@ const Home = () => {
         </Heading>
         <HistoricContent>
           {localDataState.length > 0 ? (
-            localDataState.map((item: any) => (
+            localDataState.map((item: ILocalStorage) => (
               <HistoricCard
                 key={`key-${item.codigo}`}
                 code={item.codigo}
@@ -115,10 +110,7 @@ const Home = () => {
               />
             ))
           ) : (
-            <NoDataWrapper>
-              <NoData />
-              <Heading type="h2">Não há nada aqui.</Heading>
-            </NoDataWrapper>
+            <LottieComponent data={NoDataBox} title="Não há nada aqui." />
           )}
         </HistoricContent>
       </HistoricWrapper>

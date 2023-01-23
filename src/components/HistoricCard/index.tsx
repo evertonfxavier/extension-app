@@ -6,7 +6,6 @@ import {
   faCheck,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Text from "../../components/Text";
 import { COLORS } from "../../themes/colors";
@@ -14,6 +13,7 @@ import { COLORS } from "../../themes/colors";
 import {
   ChangeNameInput,
   ContentWrapper,
+  CustomIcon,
   HistoricDateContent,
   IconStepWrapper,
   NameWrapper,
@@ -54,14 +54,7 @@ const HistoricCard: FC<IHistoricCard> = ({
   return (
     <Wrapper onClick={goTo} {...props}>
       <IconStepWrapper color={COLORS.BLUE.MAIN}>
-        <FontAwesomeIcon
-          icon={faBox}
-          color={COLORS.WHITE}
-          style={{
-            width: 22,
-            height: 22,
-          }}
-        />
+        <CustomIcon icon={faBox} color={COLORS.WHITE} sizing={22} />
       </IconStepWrapper>
       <ContentWrapper>
         <Text type="body4">{code}</Text>
@@ -75,20 +68,16 @@ const HistoricCard: FC<IHistoricCard> = ({
               type="text"
               onChange={(e) => setInputText(e.target.value)}
             />
-            <FontAwesomeIcon
+            <CustomIcon
               icon={faCheck}
               style={{
-                width: 14,
-                height: 14,
                 color: COLORS.GREEN.MAIN,
               }}
               onClick={handleUpdateName}
             />
-            <FontAwesomeIcon
+            <CustomIcon
               icon={faXmark}
               style={{
-                width: 14,
-                height: 14,
                 color: COLORS.RED.MAIN,
               }}
               onClick={() => setSelectTextState(!selectTextState)}
@@ -97,12 +86,8 @@ const HistoricCard: FC<IHistoricCard> = ({
         ) : (
           <NameWrapper onClick={(e) => e.stopPropagation()}>
             <Text type="body2">{name}</Text>
-            <FontAwesomeIcon
+            <CustomIcon
               icon={faPenToSquare}
-              style={{
-                width: 14,
-                height: 14,
-              }}
               onClick={() => setSelectTextState(!selectTextState)}
             />
           </NameWrapper>
@@ -112,14 +97,10 @@ const HistoricCard: FC<IHistoricCard> = ({
           <Text type="body4">{date}</Text>
         </HistoricDateContent>
       </ContentWrapper>
-      <FontAwesomeIcon
+      <CustomIcon
         icon={faTrash}
-        color={COLORS.MONOCHROMATIC[150]}
-        style={{
-          width: 14,
-          height: 14,
-          paddingRight: 8,
-        }}
+        color={COLORS.RED[50]}
+        paddingright={8}
         onClick={handleRemoveFromHistoric}
       />
     </Wrapper>
