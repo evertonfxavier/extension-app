@@ -97,7 +97,7 @@ const Home = () => {
           Histórico
         </Heading>
         <HistoricContent>
-          {localDataState.length > 0 ? (
+          {localDataState?.length > 0 ? (
             localDataState.map((item: ILocalStorage) => (
               <HistoricCard
                 key={`key-${item.codigo}`}
