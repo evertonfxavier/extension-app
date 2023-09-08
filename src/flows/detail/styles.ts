@@ -69,3 +69,9 @@ export const InfoStepWrapper = styled.div`
   flex-direction: column;
   gap: 4px;
 `;
+
+export const SubStepWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;

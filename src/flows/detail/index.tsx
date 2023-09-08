@@ -25,6 +25,7 @@ import {
   HeadingWrapper,
   IconStepWrapper,
   InfoStepWrapper,
+  SubStepWrapper,
   TimelineItem,
   TimelineWrapper,
   Wrapper,
@@ -75,18 +76,17 @@ const Detail = () => {
   }, []);
 
   const checkData =
-    !dataTrackingState.isLoading &&
-    dataTrackingState.isError !== 404 &&
-    dataTrackingState.data?.eventos.pop();
+  !dataTrackingState.isLoading &&
+  dataTrackingState.isError !== 404 &&
+  dataTrackingState.data?.eventos.pop();
 
-  const formattedSubStatus = (substatus: string) => {
-    const checkData = fixDataString(substatus)
-      .replace(/De.*-/, "")
-      .replace(/De.*Para:/, "");
+const formattedSubStatus = (substatus: string) => {
+  const checkData = fixDataString(substatus)
+    .replace(/De.*-/, "")
+    .replace(/De.*Para:/, "");
 
-    return checkData === " " ? null : `Destino: ${checkData}`;
-  };
-
+  return checkData === " " ? null : `Destino: ${checkData}`;
+};
   return (
     <Wrapper>
       <Header>
@@ -140,7 +140,7 @@ const Detail = () => {
                     />
                   </IconStepWrapper>
                   <InfoStepWrapper>
-                    <Text type="body3">
+                    <Text type="body4">
                       {data.data} • {data.hora}
                     </Text>
                     <Text
@@ -153,14 +153,17 @@ const Detail = () => {
                     <Text type="body3">
                       {data.local && `Local: ${fixDataString(data.local)}`}
                     </Text>
-                    <div>
+                    <SubStepWrapper>
                       {!(data.status === STEP_ENUM.RECEIVED) &&
                         data.subStatus.map((sub, i) => (
-                          <Text type="body3" key={i}>
-                            {formattedSubStatus(sub)}
+                          <Text type="body4" key={i}>
+                            {/* {sub
+                              .replace("Origem: País - /", "")
+                              .replace("Destino: País - /BR", "")} */}
+                              {formattedSubStatus(sub)}
                           </Text>
                         ))}
-                    </div>
+                    </SubStepWrapper>
                   </InfoStepWrapper>
                 </TimelineItem>
               ))
